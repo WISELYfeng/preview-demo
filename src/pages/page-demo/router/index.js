@@ -5,7 +5,7 @@ import { getAuth, setAuth } from '@/service/auth.js';
 import { getToken } from '@/service/api/login';
 
 const router = createRouter({
-  history: createWebHistory('/'),
+  history: createWebHistory('/preview-demo'),
   routes
 });
 

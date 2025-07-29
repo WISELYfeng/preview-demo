@@ -1,0 +1,31 @@
+<!doctype html><html lang="zh-CN"><head><script type="module" crossorigin src="/preview-demo/static/js/polyfills-b49ff0a4.js"></script><meta charset="UTF-8"/><link rel="shortcut icon" href="#"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>demo模块</title><script type="module" crossorigin src="/preview-demo/static/js/main-9c48cf48.js"></script><link rel="modulepreload" crossorigin href="/preview-demo/static/js/@vue-77a43f48.js"><link rel="modulepreload" crossorigin href="/preview-demo/static/js/vue-mix-5ed53cf5.js"><link rel="modulepreload" crossorigin href="/preview-demo/static/js/@vant-90e922bb.js"><link rel="modulepreload" crossorigin href="/preview-demo/static/js/vant-5b0ced84.js"><link rel="modulepreload" crossorigin href="/preview-demo/static/js/@vueuse-bd629db1.js"><link rel="stylesheet" href="/preview-demo/static/css/vant-7da1ff11.css"><link rel="stylesheet" href="/preview-demo/static/css/index-89979bd0.css"><script type="module">import.meta.url;import("_").catch(()=>1);async function* g(){};if(location.protocol!="file:"){window.__vite_is_modern_browser=true}</script><script type="module">!function(){if(window.__vite_is_modern_browser)return;console.warn("vite: loading legacy chunks, syntax error above and the same error below should be ignored");var e=document.getElementById("vite-legacy-polyfill"),n=document.createElement("script");n.src=e.src,n.onload=function(){System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))},document.body.appendChild(n)}();</script></head><body><div id="app"></div><script>document.title = '\u200E';
+      try {
+        // 定义主题映射表
+        var themeObj = {
+          0: { className: 'light', attribute: 'light' },
+          1: { className: 'dark', attribute: 'dark' },
+          2: { className: 'private-light', attribute: 'private-light' },
+          3: { className: 'private-dark', attribute: 'private-dark' },
+        };
+
+        function getQueryParam(name) {
+          var search = window.location.search.substring(1);
+          var params = search.split('&');
+          for (var i = 0; i < params.length; i++) {
+            var pair = params[i].split('=');
+            if (decodeURIComponent(pair[0]) === name) {
+              return decodeURIComponent(pair[1] || '');
+            }
+          }
+          return null;
+        }
+
+        // 获取 style 参数并应用主题
+        var styleParam = parseInt(getQueryParam('style'), 10);
+        if (isNaN(styleParam) || !themeObj.hasOwnProperty(styleParam)) {
+          styleParam = 0;
+        }
+        document.documentElement.setAttribute('theme', themeObj[styleParam].attribute);
+      } catch (error) {
+        console.error('主题标识设置异常', error);
+      }</script><script nomodule>!function(){var e=document,t=e.createElement("script");if(!("noModule"in t)&&"onbeforeload"in t){var n=!1;e.addEventListener("beforeload",(function(e){if(e.target===t)n=!0;else if(!e.target.hasAttribute("nomodule")||!n)return;e.preventDefault()}),!0),t.type="module",t.src=".",e.head.appendChild(t),t.remove()}}();</script><script nomodule crossorigin id="vite-legacy-polyfill" src="/preview-demo/static/js/polyfills-legacy-907a1b87.js"></script><script nomodule crossorigin id="vite-legacy-entry" data-src="/preview-demo/static/js/main-legacy-04993a67.js">System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))</script></body></html>
