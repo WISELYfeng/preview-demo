@@ -1,0 +1,160 @@
+//清除浮动clearfix
+.clearfix() {
+  &:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+.flex-between() {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flex-center() {
+  display: flex;
+  align-items: center;
+}
+// 多行文本超出显示省略号
+.n-ellipsis(@n) {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: @n;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  word-break: break-all;
+}
+
+// 右边框 0.5
+.border-scale-right(@color, @height) {
+  position: relative; // 确保元素可以包含伪元素
+  height: 100%;
+  &::after {
+    position: absolute;
+    content: '';
+    right: 0;
+    top: 0;
+    // height: 100%;
+    height: @height;
+    width: 1px;
+    background: @color;
+    transform: scaleX(0.5);
+  }
+}
+// 左边框 0.5
+.border-scale-left(@color, @height) {
+  position: relative; // 确保元素可以包含伪元素
+  height: 100%;
+  &::after {
+    position: absolute;
+    content: '';
+    right: left;
+    top: 0;
+    height: @height;
+    width: 1px;
+    background: @color;
+    z-index: 10;
+    transform: scaleX(0.5);
+  }
+}
+// 下边框 0.5
+.border-scale-bottom(@color) {
+  position: relative; // 确保元素可以包含伪元素
+  height: 100%;
+  &::after {
+    position: absolute;
+    content: '';
+    left: 0;
+    bottom: 0;
+    height: 1px;
+    background: @color;
+    transform: scaleX(0.5);
+  }
+}
+// 上边框 0.5
+.border-scale-top(@color) {
+  position: relative; // 确保元素可以包含伪元素
+  height: 100%;
+  &::after {
+    position: absolute;
+    content: '';
+    left: 0;
+    top: 0;
+    height: 1px;
+    width: 100%;
+    background: @color;
+    transform: scaleY(0.5);
+  }
+}
+
+// 上边框 0.5
+.border-top(@color) {
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    border-top: 1px solid @color;
+    transform: scaleY(0.5);
+    transform-origin: 0 0;
+  }
+}
+
+// 下边框 0.5
+.border-bottom(@color) {
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    border-bottom: 1px solid @color;
+    transform: scaleY(0.5);
+    transform-origin: 0 100%;
+  }
+}
+
+// 左边框 0.5
+.border-left(@color) {
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    border-left: 1px solid @color;
+    transform: scaleX(0.5);
+    transform-origin: 0 0;
+  }
+}
+
+// 右边框 0.5
+.border-right(@color) {
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    border-right: 1px solid @color;
+    transform: scaleX(0.5);
+    transform-origin: 100% 0;
+  }
+}
+
+// 用于设置 aspect-ratio 或降级到 padding-top
+.aspect-ratio(@width, @height) {
+  @supports (aspect-ratio: 1 / 1) {
+    aspect-ratio: @width / @height;
+  }
+
+  @supports not (aspect-ratio: 1 / 1) {
+    padding-top: percentage((@height / @width));
+  }
+}
