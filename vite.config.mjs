@@ -17,7 +17,7 @@ export default defineConfig(async ({ mode }) => {
   return {
     root: resolve(__dirname, 'src/pages/' + VITE_ENTRY + '/'), // 根据入口文件改变根目录
     publicDir: resolve(__dirname, `src/pages/${VITE_ENTRY}/public`),
-    base: env.VITE_PUBLIC_PATH || './',
+    base: `${env.VITE_PUBLIC_PATH}${VITE_ENTRY}/` || './',
     resolve: {
       alias: createAlias(pages),
       extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue']
