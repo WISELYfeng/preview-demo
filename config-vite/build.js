@@ -9,7 +9,8 @@ export function createBuild(VITE_ENTRY, env, isDev) {
     rollupOptions: {
       plugins: [
         rollupDelete({
-          targets: [`dist/${VITE_ENTRY}`, `sourcemaps/${VITE_ENTRY}`],
+          // 修改删除的目标路径为 doc 目录
+          targets: [`doc/${VITE_ENTRY}`, `sourcemaps/${VITE_ENTRY}`],
           hook: 'buildStart'
         })
       ],
@@ -24,7 +25,6 @@ export function createBuild(VITE_ENTRY, env, isDev) {
           // pages/projectA/views/xxx/index.vue，提取 xxx
           const match = id.match(/pages\/[^/]+\/views\/([^/]+)\/index\.vue$/);
           if (match) {
-            // console.log('match', match);
             const pageName = match[1];
             return `static/js/${pageName}-[hash].js`;
           }
@@ -43,17 +43,16 @@ export function createBuild(VITE_ENTRY, env, isDev) {
             if (/node_modules\/echarts/.test(id)) {
               return 'echarts';
             }
-            // eslint-disable-next-line no-useless-escape
             const match = id.match(/\/node_modules\/(?!.pnpm)([^\/]*)\//);
             return match ? match[1] : 'vendor';
           }
         }
       }
     },
-    outDir: resolve(__dirname, `../dist/${VITE_ENTRY}`),
+    // 修改输出目录为 doc
+    outDir: resolve(__dirname, `../doc/${VITE_ENTRY}`),
     terserOptions: {
       compress: {
-        // drop_console: env.VITE_DROP_CONSOLE === 'true' && ['log', 'info'],
         drop_debugger: true
       }
     }
