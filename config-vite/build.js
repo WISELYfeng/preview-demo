@@ -10,7 +10,7 @@ export function createBuild(VITE_ENTRY, env, isDev) {
       plugins: [
         rollupDelete({
           // 修改删除的目标路径为 doc 目录
-          targets: [`doc/${VITE_ENTRY}`, `sourcemaps/${VITE_ENTRY}`],
+          targets: [`docs/${VITE_ENTRY}`, `sourcemaps/${VITE_ENTRY}`],
           hook: 'buildStart'
         })
       ],
@@ -50,7 +50,7 @@ export function createBuild(VITE_ENTRY, env, isDev) {
       }
     },
     // 修改输出目录为 doc
-    outDir: resolve(__dirname, `../doc/${VITE_ENTRY}`),
+    outDir: resolve(__dirname, `../docs/${VITE_ENTRY}`),
     terserOptions: {
       compress: {
         drop_debugger: true
