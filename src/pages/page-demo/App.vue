@@ -8,7 +8,7 @@
 
 <script setup lang="js">
 import { onMounted, onUnmounted, computed } from 'vue';
-import { useApp } from '@demo/store/app.js';
+import { useApp } from '@page-demo/store/app.js';
 import { useInitApp } from '@/frame/useInitApp';
 import { useCachedViewStoreHook } from '@/frame/useCachedViewStore.js'
 

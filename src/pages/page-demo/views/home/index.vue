@@ -12,7 +12,7 @@
 <script setup name="Home">
 import { useRouter } from 'vue-router';
 import BaseLayout from '@/frame/BaseLayout.vue';
-import { useApp } from '@demo/store/app.js';
+import { useApp } from '@page-demo/store/app.js';
 import BaseHeader from '@/frame/BaseHeader.vue';
 
 const appStore = useApp();
