@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <title>Page Not Found</title>
+</head>
+<body>
+<script>
+  // 获取当前路径
+  const path = window.location.pathname;
+  // 应用的基础路径
+  const base = '/preview-demo/page-demo/';
+  // 如果路径不是静态资源，则重定向到 index.html
+  if (!path.endsWith('.html') && !path.includes('.')) {
+    window.location.href = base + 'index.html';
+  }
+</script>
+</body>
+</html>
