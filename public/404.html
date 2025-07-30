@@ -5,6 +5,7 @@
   <title>Page Not Found</title>
 </head>
 <body>
+<div>重定向错误页</div>
 <script>
   // 获取当前路径
   const path = window.location.pathname;
@@ -13,6 +14,7 @@
   // 如果路径不是静态资源，则重定向到 index.html
   if (!path.endsWith('.html') && !path.includes('.')) {
     window.location.href = base + 'index.html';
+    console.log('window.location.href', window.location.href);
   }
 </script>
 </body>
