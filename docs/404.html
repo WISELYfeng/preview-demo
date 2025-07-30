@@ -13,7 +13,7 @@
   const base = '/preview-demo/page-demo/';
   // 如果路径不是静态资源，则重定向到 index.html
   if (!path.endsWith('.html') && !path.includes('.')) {
-    window.location.href = base + 'index.html';
+    window.location.href = base;
     console.log('window.location.href', window.location.href);
   }
 </script>
