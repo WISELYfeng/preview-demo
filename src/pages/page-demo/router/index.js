@@ -1,11 +1,10 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHashHistory } from 'vue-router';
 import routes from './routes.js';
 import { useCachedViewStoreHook } from '@/frame/useCachedViewStore.js';
 import { getAuth, setAuth } from '@/service/auth.js';
-import { getToken } from '@/service/api/login';
 
 const router = createRouter({
-  history: createWebHistory('/preview-demo/page-demo'),
+  history: createWebHashHistory('/scroll-demo'),
   routes
 });
 
