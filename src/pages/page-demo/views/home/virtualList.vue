@@ -7,7 +7,8 @@
   </div>
 </template>
 <script setup>
-import { ref, onMounted, computed } from 'vue';
+// script setup 部分
+import { ref, onMounted, onUnmounted, computed, nextTick } from 'vue';
 
 const props = defineProps({
   listData: {
@@ -17,40 +18,69 @@ const props = defineProps({
 });
 
 const screenHeight = ref(0);
-
 const itemSize = 150;
 const startOffset = ref(0);
 const start = ref(0);
-const end = ref(null);
+const end = ref(0);
 const list = ref(null);
+const observer = ref(null); // 保存 observer 实例
 
-const listHeight = computed(() => props.listData.length * itemSize); // 列表总高度
-const visibleCount = computed(() => Math.ceil(screenHeight.value / itemSize)); // 可显示列表长度
-const getTransform = computed(() => `translate3d(0, ${startOffset.value}px,0)`); // 动画过度样式
-const visibleData = computed(() => props.listData.slice(start.value, Math.min(end.value, props.listData.length))); // 实际显示的列表数据
+const listHeight = computed(() => props.listData.length * itemSize);
+const visibleCount = computed(() => Math.ceil(screenHeight.value / itemSize));
+const getTransform = computed(() => `translate3d(0, ${startOffset.value}px, 0)`);
+const visibleData = computed(() => {
+  return props.listData.slice(start.value, Math.min(end.value, props.listData.length));
+});
 
 function scrollEventHandle() {
-  // 当前滚动位置
-  let scrollTop = list.value.scrollTop;
-  // 此时的开始索引
+  const scrollTop = list.value.scrollTop;
   start.value = Math.floor(scrollTop / itemSize);
-  // 此时的结束索引
   end.value = start.value + visibleCount.value;
-  // 此时的偏移量
   startOffset.value = scrollTop - (scrollTop % itemSize);
 }
+
+// 👇 新增：使用 ResizeObserver 监听高度变化
+function initResizeObserver() {
+  if (!list.value) return;
+
+  observer.value = new ResizeObserver(entries => {
+    for (let entry of entries) {
+      const height = entry.contentRect.height;
+      if (height !== screenHeight.value) {
+        screenHeight.value = height;
+        // 高度变化后，重新计算 start/end
+        const scrollTop = list.value.scrollTop;
+        start.value = Math.floor(scrollTop / itemSize);
+        end.value = start.value + visibleCount.value;
+      }
+    }
+  });
+
+  observer.value.observe(list.value);
+}
+
 onMounted(() => {
-  screenHeight.value = list.value.clientHeight;
-  start.value = 0;
-  end.value = start.value + visibleCount.value;
+  initResizeObserver();
+
+  // 初始化 start/end
+  nextTick(() => {
+    const height = list.value?.clientHeight;
+    if (height > 0) {
+      screenHeight.value = height;
+    }
+    start.value = 0;
+    end.value = start.value + visibleCount.value;
+  });
+});
+
+onUnmounted(() => {
+  if (observer.value) {
+    observer.value.disconnect();
+  }
 });
 </script>
 
 <style scoped lang="less">
-//.infinite-list-container {
-//  height: 100%;
-//  width: 100%;
-//}
 .infinite-list-container {
   height: 100%;
   overflow: auto;
@@ -72,6 +102,7 @@ onMounted(() => {
   top: 0;
   position: absolute;
   text-align: center;
+  height: 100%;
 }
 
 .infinite-list-item {
